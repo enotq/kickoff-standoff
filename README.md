@@ -57,6 +57,7 @@ I. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara ste
 
 
 II. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+
     https://drive.google.com/file/d/1QH59nVDzaspwLZs3LmOYU0LFxX08meJy/view?usp=sharing
     Dalam gambar, dapat dilihat bahwa pertama klien akan mengirim request ke aplikasi dari web browser. Kemudian aplikasi akan mengecek apakah request dilakukan ke url yang valid/ada dalam urls.py di proyek.
     Jika url tidak ada dalam proyek, maka aplikasi akan mengirimkan error 404 not found. Namun jika url ada, maka aplikasi akan routing kepada views yang memiliki url yang sesuai berdasarkan urls.py.
@@ -67,6 +68,7 @@ II. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django bes
 
 
 III. Jelaskan peran settings.py dalam proyek Django!
+
     Peran settings.py adalah sebagai konfigurasi utama dalam keseluruhan proyek Django. settings.py mengatur konfigurasi aplikasi-aplikasi yang ada dalam proyek sehingga mereka dapat diakses.
     Selain itu, settings.py juga mengatur koneksi database dengan aplikasi sehingga aplikasi dapat mengakses database yang disimpan.
     settings.py menyangkut keamanan proyek, dengan membatasi di mana proyek dapat di hosting agar integrasi proyek aman dari ancaman luar.
@@ -74,16 +76,19 @@ III. Jelaskan peran settings.py dalam proyek Django!
 
 
 IV. Bagaimana cara kerja migrasi database di Django?
+
     Migrasi pada Django dilakukan setelah kita mengubah file models.py dalam proyek. Hal ini dikarenakan models.py menentukan database, sehingga kemungkinan skema database akan berubah dalam aplikasi tersebut.
     Pertama, akan dijalankan perintah `python manage.py makemigrations` agar Django membuat file migrasi.
     Pada tahap ini, Django akan otomatis melakukan migrasi pada aplikasi, lalu setelah dijalankan perintah `python manage.py migrate`, maka Django akan menerapkan migrasi yang dilakukan.
 
 
 V. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
+
     Django dijadikan sebagai permulaan pembelajaran pengembangan perangkat lunak karena Django memiliki fitur-fitur yang cukup lengkap, sehingga pemula tidak perlu mengintegrasikan beberapa library yang diperlukan.
     Selain itu, struktur proyeknya tersusun dengan baik dan mudah dimengerti sehingga pemula dapat membuat aplikasi sederhana dengan cepat.
     Django juga memiliki cukup banyak dokumentasi, sehingga pemula dapat belajar dengan mudah. Tidak hanya itu, Django menggunakan bahasa pemrograman phyton yang termasuk sederhana dan mudah dipelajari.
 
 
 VI. Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
+
     Tidak, tutorial sudah sangat baik dan mudah dimengerti.
