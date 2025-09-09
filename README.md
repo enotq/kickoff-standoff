@@ -4,7 +4,11 @@ PBP A
 Tautan PWS aplikasi: https://pbp.cs.ui.ac.id/web/project/ahmad.aqeel/kickoffstandoff
 
 Jawaban pertanyaan:
+
+
 I. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
+
+
     1. Membuat proyek Django baru.
         Untuk membuat proyek Django baru, pertama saya membuat direktori baru untuk proyek Django tersebut.
         Kemudian saya mengunduh dependencies setelah mengaktifkan virtual environment.
