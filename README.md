@@ -1,7 +1,7 @@
 Ahmad Aqeel Saniy - 2306275941
 PBP A
 
-Tautan PWS aplikasi: https://pbp.cs.ui.ac.id/web/project/ahmad.aqeel/kickoffstandoff
+Tautan PWS aplikasi: https://ahmad-aqeel-kickoffstandoff.pbp.cs.ui.ac.id/
 
 Jawaban pertanyaan:
 
