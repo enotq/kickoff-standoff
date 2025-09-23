@@ -1,0 +1,22 @@
+<{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>template product</title>
+</head>
+<body>
+{% block content %}
+<h1>{{ store }}</h1>
+
+<h5>NPM: </h5>
+<p>{{ npm }}</p>
+<h5>Name: </h5>
+<p>{{ name }}<p>
+<h5>Class: </h5>
+<p>{{ class }}</p>
+
+{% endblock content %}
+</body>
+</html>
+{end>

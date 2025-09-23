@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 10px;
+            background-color: mediumseagreen;
+            color: white;
+        }
+
+        .button {
+            background-color: mediumseagreen;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+<header>
+        <h1>{{ store }}</h1>
+    <p>Welcome to the most reliable sports shop!</p>
+</header>
+
+<p><a href="{% url 'main:show_main' %}"><button>Back</button></a> </p>
+
+<h1>{{ product.title }}</h1>
+<p><b>{{ product.category }}</b>{% if product.is_featured %} | <b>Featured</b>{% endif %}</p>
+
+{% if product.thumbnail %}
+<img src="{{ product.thumbnail }}" alt="{{ product.name }}">
+<br />
+{% endif %}
+
+<p>{{ product.price }}</p>
+{% if product.is_stock_available %} {{ product.stock }} {% else %} Out of stock! {% endif %}
+<p>{{ product.rating }}/5</p>
+<p>{{ product.brand }}</p>
+<hr>
+<p>{{ product.description }}</p>
+</body>
+</html>
