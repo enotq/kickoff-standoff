@@ -63,6 +63,16 @@
         .button:hover {
             opacity: 0.8;
         }
+        .button2 {
+            background-color: white;
+            color: mediumseagreen;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -70,12 +80,24 @@
         <h1>{{ store }}</h1>
     <p>Welcome to the most reliable sports shop!</p>
     <p>{{ name }} | {{ npm }} | {{ class }}</p>
+    <a href="{% url 'main:logout' %}">
+        <button class="button2">Logout</button>
+    </a>
+    <h5>User: {{ username }}</h5>
+    <h5>Last logged in: {{ last_login }}</h5>
 </header>
 
 <h2>Products</h2>
 <a href="{% url 'main:add_product' %}">
     <button class="button">Add Product</button>
 </a>
+<a href="?filter=all">
+    <button class="button">All product</button>
+</a>
+<a href="?filter=my">
+<button class="button">My product</button>
+</a>
+
 
 <div class="product-container">
     {% if not product_list %}

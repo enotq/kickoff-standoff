@@ -56,5 +56,11 @@
 <p>{{ product.brand }}</p>
 <hr>
 <p>{{ product.description }}</p>
+<hr>
+{% if product.user %}
+    <h5>Seller: {{ product.user.username }}</h5>
+{% else %}
+    <h5>Seller: Official Store</h5>
+{% endif %}
 </body>
 </html>
