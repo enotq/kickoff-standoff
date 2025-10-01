@@ -117,7 +117,7 @@ I. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebua
 
 II. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
 
-    Secara umum, JSON lebih baikk digunakan. Alasan utamanya adalah dibandingkan XML, JSON lebih mudah dibaca oleh manusia karena sintaksnya lebih rapih.
+    Secara umum, JSON lebih baik digunakan. Alasan utamanya adalah dibandingkan XML, JSON lebih mudah dibaca oleh manusia karena sintaksnya lebih rapih.
     Selain itu, karena sintaks JSON lebih simplistik, maka JSON juga dapat berukuran lebih kecil daripada XML dalam webpage yang berukuran besar.
     Tidak hanya itu, dalam parsing, JSON bersifat lebih cepat karena XML memerlukan parser khusus.
 

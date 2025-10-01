@@ -1,5 +1,6 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
-from main.forms import ProductForm
+from main.forms import ProductForm #CarForm
 from main.models import Product
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
@@ -14,12 +15,17 @@ from django.urls import reverse
 # Create your views here.
 @login_required(login_url='/login')
 def show_main(request):
-    filter_type = request.GET.get('filter', 'all')
+    product_list = Product.objects.all()
 
-    if filter_type == 'all':
-        product_list = Product.objects.all()
-    else:
+    category = request.GET.get('category')
+    if category:
+        product_list = product_list.filter(category=category)
+
+    filter_self = request.GET.get('my')
+    if filter_self == 'true' and request.user.is_authenticated:
         product_list = Product.objects.filter(user=request.user)
+
+    categories = Product.objects.values_list('category', flat=True).distinct()
 
     context = {
         'store' :   'Kickoff Standoff',
@@ -29,6 +35,7 @@ def show_main(request):
         'product_list' : product_list,
         'last_login' : request.COOKIES.get('last_login', 'Never'),
         'username' : request.user.username,
+        'categories' : categories,
     }
     return render(request, 'main.html', context)
 
@@ -113,3 +120,32 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return redirect('main:login')
+
+def search_product(request):
+    query = request.GET.get('q', '')
+    results = []
+
+    if query:
+        results = Product.objects.filter(
+            Q(name__icontains=query) |
+            Q(description__icontains=query) |
+            Q(category__icontains=query)
+        )
+
+    context = {
+        'query' : query,
+        'results' : results,
+    }
+    return render(request, 'search.html', context)
+
+'''
+def add_car(request):
+    form = CarForm(request.POST or None)
+
+    if form.is_valid() and request.method == 'POST':
+        carObj = Car 
+        return redirect('main:show_main')
+
+    context = {'form' : form}
+    return render(request, 'add_car.html', context)
+'''

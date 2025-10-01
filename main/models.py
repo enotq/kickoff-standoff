@@ -34,3 +34,9 @@ class Product(models.Model):
     @property
     def is_stock_available(self):
         return self.stock > 0
+'''
+class Car(models.Model):
+    name = models.CharField(max_length=255)
+    brand = models.CharField(max_length=255)
+    stock = models.IntegerField()
+'''
