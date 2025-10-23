@@ -1,116 +1,136 @@
 {% extends 'base.html' %}
-<head>
-    {% block meta %}
-    <meta charset="UTF-8">
-    <title>Kickoff Standoff</title>
+{% load static %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
+{% block meta %}
+<title>Football News</title>
+{% endblock meta %}
 
-        header {
-            text-align: center;
-            padding: 10px;
-            background-color: mediumseagreen;
-            color: white;
-        }
-
-        .product-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .product-card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            width: 350px;
-            height: 450px;
-            background-color: white;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .product-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-            flex-shrink: 0;
-        }
-        .button {
-            background-color: mediumseagreen;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .button:hover {
-            opacity: 0.8;
-        }
-        .button2 {
-            background-color: white;
-            color: mediumseagreen;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-    </style>
-    {% endblock meta %}
-</head>
-<body>
 {% block content %}
 {% include 'navbar.html' %}
+<header class="relative h-96 flex items-center justify-center">
+  <!-- Background Image -->
+  <img
+    src="https://www.muralunique.com/wp-content/uploads/2022/02/1930_sports-equipment.jpg"
+    alt="Header Background"
+    class="absolute inset-0 w-full h-full object-cover"
+  />
 
-<h2>Products</h2>
-<a href="{% url 'main:add_product' %}">
-    <button class="button">Add Product</button>
-</a>
-<a href="?filter=all">
-    <button class="button">All product</button>
-</a>
-<a href="?filter=my">
-<button class="button">My product</button>
-</a>
+  <!-- Black Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
 
+  <!-- Centered Text -->
+  <div class="relative text-center text-white">
+    <p>Welcome to</p>
+    <h1 class="text-4xl md:text-6xl font-bold mb-4">Kickoff Standoff</h1>
+    <p class="text-lg md:text-xl">The best products from you, for you</p>
+  </div>
+</header>
 
-<div class="product-container">
-    {% if not product_list %}
-    <p>Belum ada produk yang dijual</p>
-    {% else %}
+<div class="bg-gray-50 w-full pt-2 min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-{% for product in product_list %}
-    <div class="product-card" onclick="window.location.href='{% url 'main:view_product' product.id %}'">
-        <p>{% if product.is_featured %}Featured{% endif %}</p>
-            {% if product.thumbnail %}
-            <img src="{{ product.thumbnail }}" alt="{{ product.name }}">
-                <br />
-            {% endif %}
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.category }} | {{ product.brand }}</p>
-        <p>Rating: {{ product.rating }}/5 | {% if product.is_stock_available %}{{ product.price }}{% else %}Out of stock!{% endif %}</p>
+    <!-- Header Section -->
+
+<!-- Banner Carousel -->
+<div class="relative w-full h-96 overflow-hidden bg-gray-900">
+    <div id="carouselSlides" class="relative w-full h-full">
+        {% for product in featured_products %}
+        <a href="{% url 'product_detail' product.id %}"
+           class="carousel-slide absolute inset-0 transition-opacity duration-1000 {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %}">
+            <img src="{{ product.thumbnail.url }}"
+                 class="w-full h-full object-cover"
+                 alt="{{ product.name }}">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <div class="text-center text-white">
+                    <h2 class="text-4xl font-bold mb-2">Check out our featured products</h2>
+                    <p class="text-xl">{{ product.name }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
     </div>
 
-{% endfor %}
-{% endif %}
+    <!-- Navigation Arrows -->
+    <button id="prevBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-3 transition">
+        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+    </button>
+
+    <button id="nextBtn" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-3 transition">
+        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+    </button>
+
+    <!-- Indicators -->
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+        {% for product in featured_products %}
+        <button class="indicator w-3 h-3 rounded-full bg-white {% if not forloop.first %}bg-opacity-50{% endif %}"
+                data-index="{{ forloop.counter0 }}"></button>
+        {% endfor %}
+    </div>
 </div>
+
+
+
+    <div class="mb-8 mt-10">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Product Collections</h1>
+      <p class="text-gray-600">Buy the best product for your sport, or sell your own!</p>
+    </div>
+
+    <!-- Filter Section -->
+
+<div class="flex justify-between space-x-8 border-b border-gray-200 mb-6">
+  <!-- All Products Button -->
+  <div class="flex space-x-8">
+  <a
+    href="?"
+    class="pb-2 text-gray-700 font-medium border-b-2 border-transparent hover:border-green-500 hover:text-green-600 transition
+           {% if request.GET.filter == 'all' or not request.GET.filter %}border-green-500 text-green-600{% endif %}">
+    All Products
+  </a>
+
+  <!-- My Products Button -->
+  <a
+    href="?filter=my"
+    class="pb-2 text-gray-700 font-medium border-b-2 border-transparent hover:border-green-500 hover:text-green-600 transition
+           {% if request.GET.filter == 'my' %}border-green-500 text-green-600{% endif %}">
+    My Products
+  </a>
+  </div>
+
+  {% if user.is_authenticated %}
+        <div class="text-sm text-gray-500">
+          Last login: {{ last_login }}
+        </div>
+      {% endif %}
+</div>
+
+
+
+
+    <!-- News Grid -->
+    {% if not product_list %}
+      <div class="bg-white rounded-lg border border-gray-200 p-12 text-center">
+        <div class="w-32 h-32 mx-auto mb-4">
+          <img src="https://static.thenounproject.com/png/461606-200.png" alt="No news available" class="w-full h-full object-contain">
+        </div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">No products were found!</h3>
+        <p class="text-gray-500 mb-6">Looking to sell your products instead?</p>
+        <a href="{% url 'main:add_product' %}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+          Sell Your Product!
+        </a>
+      </div>
+    {% else %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for product in product_list %}
+          {% include 'product_card.html' with product=product %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+    <script src="{% static 'js/carousel.js' %}"></script>
 {% endblock content %}
-</body>
-</html>

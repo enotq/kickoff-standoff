@@ -17,13 +17,23 @@ from django.urls import reverse
 def show_main(request):
     product_list = Product.objects.all()
 
-    category = request.GET.get('category')
-    if category:
-        product_list = product_list.filter(category=category)
+    search_query = request.GET.get('search')
+    if search_query:
+        product_list = product_list.filter(
+            Q(name__icontains=search_query) |
+            Q(description__icontains=search_query) |
+            Q(category__icontains=search_query) |
+            Q(brand__icontains=search_query) |
+            Q(user__username__icontains=search_query)
+        )
 
-    filter_self = request.GET.get('my')
-    if filter_self == 'true' and request.user.is_authenticated:
-        product_list = Product.objects.filter(user=request.user)
+    filter_category = request.GET.get('category')
+    if filter_category and filter_category != 'all':
+        product_list = product_list.filter(category=filter_category)
+
+    filter_self = request.GET.get('filter')
+    if filter_self == 'my' and request.user.is_authenticated:
+        product_list = product_list.filter(user=request.user)
 
     categories = Product.objects.values_list('category', flat=True).distinct()
 
@@ -35,7 +45,8 @@ def show_main(request):
         'product_list' : product_list,
         'last_login' : request.COOKIES.get('last_login', 'Never'),
         'username' : request.user.username,
-        'categories' : categories,
+        'filter_category' : filter_category,
+        'search' : search_query or '',
     }
     return render(request, 'main.html', context)
 
@@ -121,22 +132,22 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return redirect('main:login')
 
-def search_product(request):
-    query = request.GET.get('q', '')
-    results = []
+def edit_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid() and request.method == 'POST':
+        form.save()
+        return redirect('main:show_main')
+    context = { 'form' : form }
+    return render(request, "edit_product.html", context)
 
-    if query:
-        results = Product.objects.filter(
-            Q(name__icontains=query) |
-            Q(description__icontains=query) |
-            Q(category__icontains=query)
-        )
+def delete_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    product.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
 
-    context = {
-        'query' : query,
-        'results' : results,
-    }
-    return render(request, 'search.html', context)
+
+
 
 '''
 def add_car(request):

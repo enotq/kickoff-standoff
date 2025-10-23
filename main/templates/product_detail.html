@@ -1,40 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Product</title>
+{% extends 'base.html' %}
+{% load static %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            text-align: center;
-            padding: 10px;
-            background-color: mediumseagreen;
-            color: white;
-        }
-
-        .button {
-            background-color: mediumseagreen;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .button:hover {
-            opacity: 0.8;
-        }
-    </style>
-</head>
-<body>
+{% block content %}
+{% include 'navbar.html' %}
 <header>
         <h1>{{ store }}</h1>
     <p>Welcome to the most reliable sports shop!</p>
@@ -62,5 +30,4 @@
 {% else %}
     <h5>Seller: Official Store</h5>
 {% endif %}
-</body>
-</html>
+{% endblock %}

@@ -11,32 +11,53 @@
         </h1>
       </div>
 
-      <!-- Desktop Navigation -->
+    <!-- Desktop Navigation -->
+
+    <!-- Dropdown menu -->
       <div class="hidden items-center space-x-8 md:flex">
+        <div class="relative inline-block text-left">
+          <span id="categoryBtn" class="text-gray-700 hover:text-blue-600 cursor-pointer">
+            {% if filter_category and filter_category != 'all' %}
+                {{ filter_category|capfirst }}
+            {% else %}
+                Categories
+            {% endif %}
+            <svg class="w-4 h-4 inline ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </span>
 
-            <div class="relative inline-block text-left">  <!-- Make sure this has 'relative' -->
-    <span id="categoryBtn" class="text-gray-700 hover:text-blue-600 cursor-pointer">
-        Categories
-        <svg class="w-4 h-4 inline ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-        </svg>
-    </span>
-
-    <!-- Left-aligned dropdown -->
-    <div id="categoryMenu" class="hidden absolute left-0 top-full mt-0 pt-2 w-56 bg-white rounded-md shadow-lg border border-gray-200 z-10">
-        <a href="?" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">All Products</a>
-        {% for category in categories %}
-            <a href="?filter={{ category }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{ category }}</a>
-        {% endfor %}
-    </div>
-
-    </div>
-
-
-
-
-
+          <!-- dropdown menu -->
+          <div id="categoryMenu" class="hidden absolute left-0 top-full mt-0 pt-2 w-56 bg-white rounded-md shadow-lg border border-gray-200 z-10">
+            <a href="{% url 'main:show_main' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">All Products</a>
+            <a href="/?category=shoes" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Shoes</a>
+            <a href="/?category=equipment" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Equipment</a>
+            <a href="/?category=uniform" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Uniform</a>
+            <a href="/?category=t-shirt" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">T-shirt</a>
+            <a href="/?category=socks" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Socks</a>
+            <a href="/?category=merchandise" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Merchandise</a>
+            <a href="/?category=other" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Other</a>
+          </div>
+        </div>
+        <div class="relative">
+          <form method="GET" action="{% url 'main:show_main' %}" class="flex items-center">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search products..."
+                value="{{ search_query }}"
+                class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </button>
+          </form>
+        </div>
+      <a href="{% url 'main:add_product' %}" class="font-medium text-gray-600 transition-colors hover:text-gray-900"> Sell Product </a>
       </div>
+
+
 
       <!-- Desktop User Section -->
       <div class="hidden items-center space-x-6 md:flex">
@@ -73,6 +94,8 @@
         <a href="/" class="block py-3 font-medium text-gray-600 transition-colors hover:text-gray-900"> Home </a>
         <a href="{% url 'main:add_product' %}" class="block py-3 font-medium text-gray-600 transition-colors hover:text-gray-900"> Create News </a>
       </div>
+
+
 
       <!-- Mobile User Section -->
       <div class="border-t border-gray-200 pt-4">

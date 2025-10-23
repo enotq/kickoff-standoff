@@ -1,0 +1,123 @@
+{% load static %}
+<article class="overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow duration-300 hover:shadow-lg">
+  <!-- Thumbnail -->
+  <div class="relative aspect-[16/9] overflow-hidden">
+    {% if product.thumbnail %}
+    <div class="relative">
+      <img src="{{ product.thumbnail }}" alt="{{ product.title }}" class="{% if not product.is_stock_available %}grayscale opacity-50{% endif %} h-full w-full object-center object-cover   " />
+      {% if not product.is_stock_available %}
+      <div class="bg-opacity-40 absolute inset-0 flex items-center justify-center bg-black">
+        <span class="-rotate-12 transform text-2xl font-bold text-white">OUT OF STOCK!</span>
+      </div>
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="h-full w-full bg-gray-200"></div>
+    {% endif %}
+
+    <!-- Category Badge -->
+    <div class="absolute top-3 left-3">
+      <span class="inline-flex items-center rounded-md bg-green-600 px-2.5 py-0.5 text-xs font-medium text-white"> {{ product.get_category_display }} </span>
+    </div>
+
+    <!-- Status Badges -->
+    <div class="absolute top-3 right-3 flex space-x-2">
+      {% if product.is_featured %}
+      <span class="inline-flex items-center rounded bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800"> Featured </span>
+      {% endif %} {% if product.rating >= 4.5 %}
+      <span class="inline-flex items-center rounded bg-red-100 px-2 py-1 text-xs font-medium text-red-800"> Top Rating! </span>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-5">
+    <div class="mb-3 flex items-center text-sm text-gray-500">
+      <span>{{ product.get_category_display}}</span>
+      <span class="mx-2">•</span>
+      <span>{{ product.brand }}</span>
+    </div>
+
+    <h3 class="mb-3 line-clamp-2 text-lg leading-tight font-semibold text-gray-900">
+      <a href="{% url 'main:view_product' product.id %}" class="transition-colors hover:text-green-600"> {{ product.name }} </a>
+    </h3>
+
+    <br>
+    <h3 class="mb-3 line-clamp-2 text-lg leading-tight font-semibold text-gray-900">
+      <a href="{% url 'main:view_product' product.id %}" class="transition-colors hover:text-green-600"> {{ product.price }} </a>
+    </h3>
+
+    <div class="flex items-center">
+    {% with full_stars=product.rating|floatformat:0|add:0 has_half=product.rating|floatformat:1|slice:"-1:"|add:0 %}
+        {% for i in "12345" %}
+            {% if forloop.counter <= full_stars %}
+                <span class="text-yellow-400 text-xl">★</span>
+            {% elif forloop.counter == full_stars|add:1 and has_half >= 5 %}
+                <span class="text-yellow-400 text-xl">⯨</span>
+            {% else %}
+                <span class="text-gray-300 text-xl">☆</span>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+    <span class="ml-2 text-sm text-gray-600">({{ product.rating }})</span>
+    </div>
+
+
+    <!-- Action Buttons -->
+    {% if user.is_authenticated and product.user == user %}
+    <div class="hidden items-right space-x-8 md:flex">
+
+            <div class="relative inline-block text-left">  <!-- Make sure this has 'relative' -->
+    <span id="moreBtn" class="text-gray-700 hover:text-blue-600 cursor-pointer">
+        <h3>...</h3>
+    </span>
+
+    <!-- Left-aligned dropdown -->
+    <div id="moreMenu" class="hidden absolute left-0 top-full mt-0 pt-2 w-56 bg-white rounded-md shadow-lg border border-gray-200 z-10">
+        <a href="{% url 'main:edit_product' product.id %}" class="text-sm text-gray-600 transition-colors hover:text-gray-700"> Edit </a>
+        <a href="{% url 'main:edit_product' product.id %}" class="text-sm text-red-600 transition-colors hover:text-red-700"> Delete </a>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    const btn = document.querySelector("button.mobile-menu-button");
+    const menu = document.querySelector(".mobile-menu");
+
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+
+
+  function initDropdown(btnId, menuId) {
+    const btn = document.getElementById(btnId);
+    const menu = document.getElementById(menuId);
+    let isClicked = false;
+
+    // Keep open on click
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isClicked = true;
+        menu.classList.remove('hidden');
+    });
+
+    // hide when not hovered
+    const container = btn.parentElement;
+    container.addEventListener('mouseleave', () => {
+        if (!isClicked) {
+            menu.classList.add('hidden');
+        }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        isClicked = false;
+    });
+
+    // Prevent closing when clicking inside menu
+    menu.addEventListener('click', (e) => e.stopPropagation());
+  }
+  initDropdown('moreBtn', 'moreMenu')
+  </script>
+</article>
