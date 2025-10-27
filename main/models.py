@@ -22,12 +22,12 @@ class Product(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     price = models.IntegerField()
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     thumbnail = models.URLField(blank=True, null=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='other')
     is_featured = models.BooleanField(default=False)
     stock = models.PositiveIntegerField(default=0)
-    brand = models.CharField(max_length=255)
+    brand = models.CharField(max_length=255, blank=True, null=True)
     rating = models.FloatField(default=0)
 
 

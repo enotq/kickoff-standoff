@@ -35,7 +35,8 @@ def show_main(request):
     if filter_self == 'my' and request.user.is_authenticated:
         product_list = product_list.filter(user=request.user)
 
-    categories = Product.objects.values_list('category', flat=True).distinct()
+    raw_category = Product.objects.values_list('category', flat=True)
+    categories = sorted(set(raw_category))
 
     context = {
         'store' :   'Kickoff Standoff',

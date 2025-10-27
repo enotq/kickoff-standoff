@@ -275,4 +275,99 @@ IV. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara st
 
 </detail>
 
+<details>
+<summary>Tugas Individu 5</summary>
+
+Jawaban Pertanyaan:
+
+
+I. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+
+    Urutan prioritas pengambilan CSS selector dari tertinggi ke terendah diambil dari skala prioritas dibawah:
+
+    1. Origin and Importance
+        Origin artinya asal CSS itu ada, terdapat 3 skala prioritas di dalamnya. Pertama adalah Author dengan prioritas tertinggi. Artinya CSS tersebut berasal dari developer itu sendiri (sudah dibuat dari awal), sehingga akan mengganti seluruh CSS style lainnya.
+        Kedua adalah user, yaitu jika user dapat mengganti atribut CSS pada client user, seperti mengganti font, ukuran, dan warna. Yang terakhir adalah User Agent, yaitu dimana browser memiliki default style sendiri, contohnya seperti jika bowser memiliki dark-mode support, aplikasi dapat juga memiliki mode gelap secara otomatis.
+
+        Importance artinya CSS tersebut memiliki syntax `!important`. Syntax ini diletakkan pada suatu CSS style yang membuatnya memiliki prioritas tertinggi, artinya elemen yang terkait akan pasti mengikuti CSS tersebut.
+
+    2. Selector Specifity
+        Selector specifity artinya lokasi, atau syntax yang css gunakan, dengan dibagi kembali menjadi beberapa urutan prioritas.
+
+        Pertama adalah inline styles, artinya CSS terdapat langsung didalam atribut `styles` pada suatu elemen. Elemen pasti akan mengikuti style ini.
+
+        Kedua adalah ID Selectors, artinya CSS menentukan style sebuah elemen melalui ID. Style yang ditentukan dimasukkan atribut kelompok elemen dengan ID tertentu, ditandai dengan `#` diikuti nama ID seperti `#header`. Elemen dengan ID tersebut akan mengikuti style yang ditentukan.
+
+        Ketiga adalah Class Selectors, artinya CSS menentukan style sebuah elemen dengan class tersebut. Style yang ditentukan dimasukkan atribut dengan class tertentu, ditandai dengan `.` diikuti nama class seperti `.button`.
+
+        Keempat adalah Element Selectors, artinya CSS menentukan style seluruh elemen yang ditentukan tersebut. Style yang ditentukan dimasukkan atribut elemen tertentu, ditandai dengan nama elemen seperti `div`.
+
+    3. Source Order
+        Jika terdapat beberapa stylesheets yang dimasukkan kedalam bagian `<head>` sebuah HTML, maka HTML akan mengikuti stylesheets yang paling akhir dan mengganti styling stylesheets awal jika mengikat atribut yang sama.
+
+    4. Initial and Inherited Property
+        Sebuah elemen HTML dapat memiliki CSS styling yang ditandai dengan `intitial` dan/atau `inherit`. `inherit` property akan membuat elemen tersebut menggunakan nilai style yang dimiliki parentnya, jika parent mengganti style maka elemen juga akan ikut mengganti style. Sedangkan `initial` akan mengembalikan nilai default browser yang ditentukan browser itu sendiri.
+
+
+II. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+
+    Responsive design memiliki beberapa alasan yang membuatnya penting dalam pengembangan aplikasi web, contohnya ialah membuatnya dapat bekerja dengan benar pada perangkat yang berbeda (multi-device usage) seperti desktop, smartphone, dan tablet.
+    Selain itu, dengan responsive design maka user experience juga akan meningkat, karena terdapat support untuk beberapa perangkat berbeda sehingga user dapat lebih nyaman menggunakan aplikasi di semua perangkat.
+    Konsep ini juga dapat meningkatkan cost efficiency, karena kita tidak akan perlu membuat beberapa kode berbeda untuk semua perangkat, dengan hanya satu codebase, aplikasi dapat bekerja dengan benar pada seluruh perangkat.
+
+    Contoh aplikasi yang sudah responsive adalah Facebook. Facebook memiliki responsive design yang akan mengubah layout dan UI berdasarkan dengan ukuran layar. Selain itu bentuk halaman juga berubah jika kita menggunakan perangkat berbeda, seperti beberapa tombol menu dimasukkan kedalam satu tombol yang dapat memuat opsi menu lain pada smartphone, sehingga mudah memilih opsi dan tidak mengganggu penampilan pada layar kecil.
+
+    Contoh aplikasi yang belum responsive adalah SIAKNG. SIAKNG belum memiliki responsive design karena layout dan UI tetap sama pada beberapa ukuran layar maupun perangkat yang berbeda. Dapat dilihat dengan mudah bahwa jika kita membuka aplikasi pada smartphone, tombol menu dan elemen lainnya masih sama persis seperti pada di desktop, sehingga sulit untuk memilih menu tertentu (contohnya seperti mau melihat IRS maka kita harus zoom in pada aplikasi agar mudah memencet opsi tersebut).
+
+
+III. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+    Jika dilihat seperti model kotak, content akan terletak di dalam padding, padding terletak di dalam border, dan border terletak di dalam margin.
+
+    Padding merupakan area diantara content dan border, fungsinya adalah untuk memberikan ruang pada elemen. Ruang ini akan terpengaruh dengan elemen tersebut, misalnya seperti warnanya akan berubah mengikuti background color elemen, atau jika elemen dapat ditekan, maka padding juga termasuk area yang dapat ditekan.
+
+    Border merupakan garis pembatas padding dengan margin, fungsinya adalah untuk memberikan batas visual pada elemen. Batas ini dapat memiliki style sendiri, tidak terpengaruh dengan objek. Dapat dilihat border berfungsi layaknya outline objek.
+
+    Margin Merupakan area terluar, di luar border, fungsinya adalah untuk memberikan jarak antara elemen satu dengan lainnya. Area ini berguna agar elemen tidak bertabrakan sehingga lebih rapih dan mudah dilihat.
+
+    contoh implementasinya adalah seperti `<div style="width: 200px; padding: 20px; border: 5px solid red; margin-top: 20px; ...>`, artinya elemen pada div tersebut akan memiliki ukuran interaksi (misal dapat ditekan) sebesar padding (20 pixels), dengan dibatasi outline dengan ketebalan 5 pixels dan berwarna merah seperti dengan pada border, dan berjarak 20 pixels dari elemen diatasnya.
+
+IV. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+
+    Flex box merupakan one dimensional layout, yaitu layout yang berguna untuk membagi space di dalam suatu kontainer dan mengatur alignment elemen secara horizontal atau vertikal. Flex box berguna untuk mengatur komponen kecil dan style sederhana, misalnya seperti pada navigation bar dimana seluruh elemen terletak pada baris yang sama sehingga diperlukan spacing yang setara.
+
+    Grid layout merupakan two dimensional layout, yaitu layout yang berguna untuk mengatur elemen ke dalam baris dan kolom sehingga setara secara horizontal dan vertikal. Grid layout berguna untuk mengatur layout yang bersifat kompleks dan besar, misalnya seperti gallery atau halaman utama dimana terdapat banyak elemen yang harus disusun secara rapih.
+
+V. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step!
+
+    1. Implementasikan fungsi untuk menghapus dan mengedit product.
+
+        Untuk membuat fungsi hapus product, pertama dibuatlah fungsi `delete_product` dalam views.py. Fungsi ini akan mengambil parameter request dan product id. Pertama fungsi akan mencari product yang akan dihapus berdasarkan product id yang sesuai, kemudian akan menghapus product yang ditemukan dengan `product.delete()` dan mereturn HTTPsResponse ke client. Untuk mengakses fungsi, hanya perlu membuat sebuah elemen/tombol yang akan meredirect ke url penghapusan disertai dengan product id tersebut yang akan secara otomatis menghapus product dari database.
+
+        Untuk membuat fungsi edit product, pertama dibuatlah fungsi `edit_product` dalam views.py. Fungsi ini akan mengambil parameter request dan product id. Pertama fungsi akan mencari product yang akan diedit berdasarkan product id yang sesuai, kemudian fungsi akan memanggil ProductForm dengan isian yang telah ada pada produk (instance=product). Setelah user mengisi dan submit form, akan dicek apakah form valid, jika iya maka django akan menyimpan edit dan mengganti detail produk sesuai dengan isian form tersebut. Untuk mengakses fungsi, hanya perlu membuat sebuah elemen/tombol yang akan meredirect ke url pengeditan disertai dengan product id tersebut.
+
+    2. Kustomisasi halaman login, register, tambah product, edit product, dan detail product semenarik mungkin.
+
+        Untuk halaman login dan register, hanya perlu menambahkan sebuah form didalam sebuah card yang akan meminta user untuk menginput username dan password. Kemudian ditambahkan sebuah tombol untuk memanggil fungsi login atau register, isi input form again digunakan untuk melakukan autentikasi. Jika autentikasi gagal, maka dibuatlah sebuah pesan dari django authentication handling kepada user.
+
+        Untuk halaman tambah product dan edit produk, karena dapat langsung menggunakan django form builder, hanya perlu membuat sebuah card pada suatu background dan membuat tombol confirm atau cancel serta tombol return ke halaman utama. Untuk tombol add product, saya pindahkan ke navbar sehingga user dapat langsung menambahkan produk sendiri dari halaman manapun.
+
+        Untuk detail product, halaman dibagi menjadi dua menggunakan flexbox, kemudian pada sisi kiri diletakkan gambar produk, jika produk tidak memiliki stok, maka gambar memiliki overlay "OUT OF STOCK". Jika produk merupakan milik user yang sekarang sedang login, maka terdapat juga tombol untuk mengedit dan menghapus produk langsung dari halaman detail produk.
+        Pada sisi kiri, terdapat detail produk, mulai dari badges jika produk featured, memiliki stock atau tidak, dan bersifat top rated. Setelah itu terdapat juga nama produk, harga, deskripsi, informasi tambahan berupa user yang menjual, brand, stock tersisa, dan kategori. Terdapat tombol untuk add to cart dan buy now yang masih belum berfungsi, serta tombol rating dan share yang belum diimplementasikan.
+
+    3. Kustomisasi halaman daftar product menjadi lebih menarik dan responsive.
+
+        Karena sebelum Tugas Individu 5 saya sudah mengimplementasikan halaman utama yang ditampilkan dengan product cards, saya tinggal memindahkan kode html yang telah dibuat ke dalam product_cards.html dan menambahkan fungsionalitas tambahan seperti badge jika produk featured atau top rated, dan display rating. Saya juga menambahkan carousel yang menampilkan produk-produk yang ada pada awal halaman berdasarkan tailwind documentation di internet.
+        Selain itu saya juga merapihkan halaman utama dengan menghapus header untuk menggantikannya dengan carousel, merapihkan tombol filter produk, serta memindahkan tombol add product ke bagian navbar.
+
+    4. Untuk setiap card product, buatlah dua buah button untuk mengedit dan menghapus product pada card tersebut!
+
+        Pada product_cards.html, saya menambahkan dua tombol dengan menggunakan ikon svg dari internet sebagai tombol untuk mengedit dan menghapus produk tersebut. Tombol tersebut hanya akan muncul jika user sudah terautentikasi dan merupakan penjual produk tersebut. Tombol tersebut akan redirect user untuk edit dan hapus produk, mengoverwrite card yang keseluruhannya jika ditekan akan redirect ke produk detail.
+
+    5. Buatlah navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.
+
+        Untuk bagian navbar, saya menambahkan icon aplikasi sementara serta namanya pada bagian kiri navbar yang berguna sebagai tombol home jika ditekan. Saya juga menambahkan tombol drop down kategori yang berfungsi sebagai filter halaman utama yang akan menampilkan produk dengan kategori yang sesuai. Terdapat juga searchbar yang akan menampilkan produk yang terkait dengan input yang dimasukkan, dengan menggunakan django Q.
+        Search bar akan mencari produk dengan nama, vendor, brand, dan kategori yang sama dengan yang dicari. Setelah itu terdapat tombol sell product yang berguna untuk menambahkan produk, dan pada bagian kanan terdapat bagian user dan tombol log out.
+
+</detail>
 
