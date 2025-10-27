@@ -1,66 +1,223 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Product</title>
+{% extends 'base.html' %}
+{% load static %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
+{% block meta %}
+<title>{{ product.name }} - Product Detail</title>
+{% endblock meta %}
 
-        header {
-            text-align: center;
-            padding: 10px;
-            background-color: mediumseagreen;
-            color: white;
-        }
+{% block content %}
+{% include 'navbar.html' %}
 
-        .button {
-            background-color: mediumseagreen;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .button:hover {
-            opacity: 0.8;
-        }
-    </style>
-</head>
-<body>
-<header>
-        <h1>{{ store }}</h1>
-    <p>Welcome to the most reliable sports shop!</p>
-</header>
+<div class="bg-gray-50 min-h-screen mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav class="flex mb-8 text-sm" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'main:show_main' %}" class="text-gray-700 hover:text-green-600">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 text-gray-400 mx-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-gray-500">{{ product.name }}</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
 
-<p><a href="{% url 'main:show_main' %}"><button>Back</button></a> </p>
+        <!-- Product Detail Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 
-<h1>{{ product.title }}</h1>
-<p><b>{{ product.category }}</b>{% if product.is_featured %} | <b>Featured</b>{% endif %}</p>
+            <!-- Left Column - Image -->
+            <div class="space-y-4">
+                <div class="relative bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+                    {% if product.thumbnail %}
+                        <img src="{{ product.thumbnail }}"
+                             alt="{{ product.name }}"
+                             class="w-full h-96 lg:h-[500px] object-cover {% if not product.is_stock_available %}grayscale opacity-50{% endif %}">
+                    {% else %}
+                        <div class="w-full h-96 lg:h-[500px] bg-gray-200 flex items-center justify-center">
+                            <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                    {% endif %}
 
-{% if product.thumbnail %}
-<img src="{{ product.thumbnail }}" alt="{{ product.name }}">
-<br />
-{% endif %}
+                    <!-- Out of Stock Overlay -->
+                    {% if not product.is_stock_available %}
+                    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                        <span class="-rotate-12 transform text-3xl font-bold text-white drop-shadow-lg">
+                            OUT OF STOCK!
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
 
-<p>{{ product.price }}</p>
-{% if product.is_stock_available %} {{ product.stock }} {% else %} Out of stock! {% endif %}
-<p>{{ product.rating }}/5</p>
-<p>{{ product.brand }}</p>
-<hr>
-<p>{{ product.description }}</p>
-<hr>
-{% if product.user %}
-    <h5>Seller: {{ product.user.username }}</h5>
-{% else %}
-    <h5>Seller: Official Store</h5>
-{% endif %}
-</body>
-</html>
+            <!-- edit and delete -->
+            {% if user.is_authenticated and product.user == user %}
+                <div class="flex gap-3 pt-4">
+                        <button class="flex-1 bg-yellow-500 text-white py-3 px-6 rounded-xl font-medium font-semibold hover:bg-yellow-600 transition-colors flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                            Edit
+                        </button>
+                        <button class="flex-1 bg-red-600 text-white py-3 px-6 rounded-xl font-medium font-semibold hover:bg-red-700 transition-colors flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                            Delete
+                        </button>
+                    </div>
+            {% endif %}
+                </div>
+
+
+            <!-- Right Column - Details -->
+            <div class="space-y-6">
+
+                <!-- Badges -->
+                <div class="flex flex-wrap gap-2">
+                    {% if product.is_featured %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
+                        ⭐ Featured
+                    </span>
+                    {% endif %}
+
+                    {% if product.rating >= 4.5 %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800">
+                        🔥 Top Rated
+                    </span>
+                    {% endif %}
+
+                    {% if product.is_stock_available %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                        ✓ In Stock
+                    </span>
+                    {% else %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-800">
+                        ✕ Out of Stock
+                    </span>
+                    {% endif %}
+                </div>
+
+                <!-- Product Name -->
+                <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
+                    {{ product.name }}
+                </h1>
+
+                <!-- Rating -->
+                {% if product.rating %}
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= product.rating|floatformat:0 %}
+                                <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                </svg>
+                            {% else %}
+                                <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 20 20">
+                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                </svg>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <span class="text-lg font-semibold text-gray-900">{{ product.rating }}</span>
+                    <span class="text-gray-500">•</span>
+                    <span class="text-gray-600">{{ product.stock }} available</span>
+                </div>
+                {% endif %}
+
+                <!-- Price -->
+                <div class="border-t border-b border-gray-200 py-6">
+                    <div class="flex items-baseline gap-3">
+                        <span class="text-4xl font-bold text-gray-900">
+                            ${{ product.price }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-semibold text-gray-900">Product Description</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        {{ product.description|default:"No description available for this product." }}
+                    </p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-3 pt-4">
+                    {% if product.is_stock_available %}
+                    <button class="w-full bg-green-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-green-700 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-transform">
+                        Add to Cart
+                    </button>
+                    <button class="w-full bg-white text-green-600 py-4 px-6 rounded-xl font-semibold text-lg border-2 border-green-600 hover:bg-green-50 transition-colors">
+                        Buy Now
+                    </button>
+                    {% else %}
+                    <button disabled class="w-full bg-gray-300 text-gray-500 py-4 px-6 rounded-xl font-semibold text-lg cursor-not-allowed">
+                        Out of Stock
+                    </button>
+                    <button class="w-full bg-white text-gray-700 py-4 px-6 rounded-xl font-semibold text-lg border-2 border-gray-300 hover:bg-gray-50 transition-colors">
+                        Notify When Available
+                    </button>
+                    {% endif %}
+                </div>
+
+                <!-- Additional Info -->
+                <div class="bg-gray-50 rounded-xl p-6 space-y-4 border border-gray-200">
+                    <h3 class="font-semibold text-gray-900">Product Information</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Stock Available:</span>
+                            <span class="font-medium text-gray-900">{{ product.stock }} units</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Category:</span>
+                            <span class="font-medium text-gray-900">{{ product.get_category_display }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Brand:</span>
+                            <span class="font-medium text-gray-900">{% if product.brand %} {{ product.brand|title }} {% else %} Unknown {% endif %}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Vendor:</span>
+                            <span class="font-medium text-gray-900">{% if product.user %} {{ product.user }} {% else %} Official Store {% endif %}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Share & Wishlist -->
+                <div class="flex gap-3 pt-4">
+                    <button class="flex-1 bg-white text-gray-700 py-3 px-6 rounded-xl font-medium border border-gray-300 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5 text-black-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 22 20">
+                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                        </svg>
+                        Rate
+                    </button>
+                    <button class="flex-1 bg-white text-gray-700 py-3 px-6 rounded-xl font-medium border border-gray-300 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                        </svg>
+                        Share
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="mt-12">
+            <a href="{% url 'main:show_main' %}" class="inline-flex items-center text-green-600 hover:text-green-700 font-medium group">
+                <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Back to Products
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

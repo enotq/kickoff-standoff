@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block meta %}
-<title>Add new Product</title>
+<title>Edit Product</title>
 {% endblock meta %}
 
 {% block content %}
@@ -18,14 +18,14 @@
     <!-- Form -->
     <div class="bg-white rounded-lg border border-gray-200 p-6 sm:p-8 form-style">
       <div class="flex items-center gap-4">
-                <div class="bg-green-600 rounded-2xl p-4 shadow-lg">
+                <div class="bg-yellow-500 rounded-2xl p-4 shadow-lg">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                        </svg>
-                    </div>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                </div>
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Add New Product</h1>
-                    <p class="text-gray-600 mt-1">Sell your own products by filling out the form below!</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Edit Product</h1>
+                    <p class="text-gray-600 mt-1">Edit and change your product details!</p>
                 </div>
             </div>
 
@@ -52,8 +52,8 @@
           <a href="{% url 'main:show_main' %}" class="order-2 sm:order-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors text-center">
             Cancel
           </a>
-          <button type="submit" class="order-1 sm:order-2 flex-1 bg-green-600 text-white px-6 py-3 rounded-md font-medium hover:bg-green-700 transition-colors">
-            Add Product
+          <button type="submit" class="order-1 sm:order-2 flex-1 bg-yellow-500 text-white px-6 py-3 rounded-md font-medium hover:bg-yellow-600 transition-colors">
+            Edit Product
           </button>
         </div>
       </form>

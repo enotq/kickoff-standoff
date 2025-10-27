@@ -1,116 +1,85 @@
-{% extends 'base.html' %}
-<head>
-    {% block meta %}
-    <meta charset="UTF-8">
-    <title>Kickoff Standoff</title>
+{% extends 'base.html' %} {% load static %} {% block meta %}
+<title>Kickoff Standoff</title>
+{% endblock meta %} {% block content %} {% include 'navbar.html' %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
+    <div class="relative h-[80vh] w-full overflow-hidden bg-gray-900">
+      <div id="carouselSlides" class="relative h-full w-full">
+        {% for product in product_list %}
+        <div onclick="window.location.href='{% url 'main:view_product' product.id %}'" class="carousel-slide {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %} absolute inset-0 transition-opacity duration-1000">
+          <img src="{{ product.thumbnail }}" class="h-full w-full object-cover" alt="{{ product.name }}" />
+          <div class="bg-opacity-40 absolute inset-0 flex items-center justify-center bg-black">
+            <div class="text-center text-white">
+              <h2 class="mb-2 text-4xl font-bold">Check out our featured products</h2>
+              <p class="text-xl">{{ product.name }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
 
-        header {
-            text-align: center;
-            padding: 10px;
-            background-color: mediumseagreen;
-            color: white;
-        }
+      <!-- Navigation Arrows -->
+      <button id="prevBtn" class="bg-opacity-50 hover:bg-opacity-75 absolute top-1/2 left-4 -translate-y-1/2 transform rounded-full bg-white p-3 transition">
+        <svg class="h-6 w-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
 
-        .product-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
+      <button id="nextBtn" class="bg-opacity-50 hover:bg-opacity-75 absolute top-1/2 right-4 -translate-y-1/2 transform rounded-full bg-white p-3 transition">
+        <svg class="h-6 w-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
 
-        .product-card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            width: 350px;
-            height: 450px;
-            background-color: white;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .product-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-            flex-shrink: 0;
-        }
-        .button {
-            background-color: mediumseagreen;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .button:hover {
-            opacity: 0.8;
-        }
-        .button2 {
-            background-color: white;
-            color: mediumseagreen;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-    </style>
-    {% endblock meta %}
-</head>
-<body>
-{% block content %}
-{% include 'navbar.html' %}
-
-<h2>Products</h2>
-<a href="{% url 'main:add_product' %}">
-    <button class="button">Add Product</button>
-</a>
-<a href="?filter=all">
-    <button class="button">All product</button>
-</a>
-<a href="?filter=my">
-<button class="button">My product</button>
-</a>
-
-
-<div class="product-container">
-    {% if not product_list %}
-    <p>Belum ada produk yang dijual</p>
-    {% else %}
-
-{% for product in product_list %}
-    <div class="product-card" onclick="window.location.href='{% url 'main:view_product' product.id %}'">
-        <p>{% if product.is_featured %}Featured{% endif %}</p>
-            {% if product.thumbnail %}
-            <img src="{{ product.thumbnail }}" alt="{{ product.name }}">
-                <br />
-            {% endif %}
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.category }} | {{ product.brand }}</p>
-        <p>Rating: {{ product.rating }}/5 | {% if product.is_stock_available %}{{ product.price }}{% else %}Out of stock!{% endif %}</p>
+      <!-- Indicators -->
+      <div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform gap-2">
+        {% for product in featured_products %}
+        <button class="indicator {% if not forloop.first %}bg-opacity-50{% endif %} h-3 w-3 rounded-full bg-white" data-index="{{ forloop.counter0 }}"></button>
+        {% endfor %}
+      </div>
     </div>
 
-{% endfor %}
-{% endif %}
+<div class="min-h-screen w-full bg-gray-50 pt-2">
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+
+
+
+    <div class="mt-10 mb-8">
+      <h1 class="mb-2 text-3xl font-bold text-gray-900">Product Collections</h1>
+      <p class="text-gray-600">Buy the best product for your sport, or sell your own!</p>
+    </div>
+
+    <!-- Filter Section -->
+
+    <div class="mb-6 flex justify-between space-x-8 border-b border-gray-200">
+      <!-- All Products Button -->
+      <div class="flex space-x-8">
+        <a href="?" class="{% if request.GET.filter == 'all' or not request.GET.filter %}border-green-500 text-green-600{% endif %} border-b-2 border-transparent pb-2 font-medium text-gray-700 transition hover:border-green-500 hover:text-green-600"> All Products </a>
+
+        <!-- My Products Button -->
+        <a href="?filter=my" class="{% if request.GET.filter == 'my' %}border-green-500 text-green-600{% endif %} border-b-2 border-transparent pb-2 font-medium text-gray-700 transition hover:border-green-500 hover:text-green-600"> My Products </a>
+      </div>
+
+      {% if user.is_authenticated %}
+      <div class="text-sm text-gray-500">Last login: {{ last_login }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Products Grid -->
+    {% if not product_list %}
+    <div class="rounded-lg border border-gray-200 bg-white p-12 text-center">
+      <div class="mx-auto mb-4 h-32 w-32">
+        <img src="https://static.thenounproject.com/png/461606-200.png" alt="No news available" class="h-full w-full object-contain" />
+      </div>
+      <h3 class="mb-2 text-lg font-medium text-gray-900">No products were found!</h3>
+      <p class="mb-6 text-gray-500">Looking to sell your products instead?</p>
+      <a href="{% url 'main:add_product' %}" class="inline-flex items-center rounded-md bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-700"> Sell Your Product! </a>
+    </div>
+    {% else %}
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">{% for product in product_list %} {% include 'product_card.html' with product=product %} {% endfor %}</div>
+    {% endif %}
+  </div>
 </div>
+
+<script src="{% static 'js/carousel.js' %}"></script>
 {% endblock content %}
-</body>
-</html>
