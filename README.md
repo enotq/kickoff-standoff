@@ -273,7 +273,7 @@ IV. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara st
         kita hanya tambahkan 'last_login' sebagai request.COOKIES.get('last_login', 'Never') ke context. Kita juga tambahkan 'username' sebagai request.user.username yang akan mengambil username user sekarang.
         Akhirnya, kita hanya tambahkan bagian yang menunjukkan sesi terakhir login serta username user yang sedang login pada halaman utama.
 
-</detail>
+</details>
 
 <details>
 <summary>Tugas Individu 5</summary>
@@ -371,3 +371,35 @@ V. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara ste
 
 </detail>
 
+<details>
+<summary>Tugas Individu 6</summary>
+
+Jawaban Pertanyaan:
+
+I. Apa perbedaan antara synchronous request dan asynchronous request?
+
+    Synchronous request berarti ketika user mengirim request kepada server, user harus menunggu server memproses request yang dikirim dengan menghentikan program yang berjalan dan memproses request yang dikirimkan satu per satu. Setelah server selesai memproses, barulah hasil response dikirimkan kepada user client dalam bentuk page baru, sehingga user harus mereload client untuk memuat perubahan.
+
+    Sedangkan asychronous request berarti ketika user mengirim request kepada server, request akan dihandle sebuah perantara (seperti AJAX) sehingga user tidak harus menunggu server selesai menghandle request. Maka server masih tetap melakukan program yang berjalan dan memproses request secara bersamaan, setelah proses selesai, maka program mengirimkan hasil response kepada user client melalui page partial sehingga user tidak perlu mereload.
+
+
+II. Bagaimana AJAX bekerja di Django (alur request–response)?
+
+    AJAX bekerja dalam Django agar website dapat berkomunikasi dengan server tanpa harus melakukan page reload. Pertama pada client user akan berinteraksi pada browser dengan melaksanakan event (misalkan menekan tombol), maka JavaScript akan membuat dan mengirim request HTTP ke server Django. Request tersebut akan diterima oleh view Django dan diproses untuk dibuat responsenya sesuai dengan fungsi yang menghandle dalam views.py. Kemudian, response akan mengirimkan hasil response dalam bentuk JSON (seperti show_json pada views.py), response tersebut diterima browser dan digunakan untuk memperbarui halaman menggunakan JavaScript.
+
+
+III. Apa keuntungan menggunakan AJAX dibandingkan render biasa di Django?
+
+    Keuntungan utama menggunakan AJAX adalah user experience yang lebih baik. Karena request dapat diproses secara real-time, user tidak harus melakukan page reload setiap kali melakukan request dengan server dan dapat melihat langsung hasil response dari server. Selain itu, karena yang dikirimkan dari server hanyalah response JSON dan bukan seluruh html halaman, bandwith yang digunakan juga lebih kecil.
+
+
+IV. Bagaimana cara memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django?
+
+    Untuk memastikan keamanan, kita dapat menggunakan token csrf untuk memastikan login dan register aman, selain itu juga dapat ditambahkan validasi tambahan secara manual untuk menambah keamanan seperti membuat limit length pada input, melakukan cleanup pada forms (input sanitization), dan membatasi login attempts. Kita juga dapat menggunakan https dan secure cookies, serta content security policy.
+
+
+V. Bagaimana AJAX mempengaruhi pengalaman pengguna (User Experience) pada website?
+
+    Karena AJAX dapat melaksanakan komunikasi user dengan server secara real-time, maka secara otomatis aplikasi dapat berkomunikasi dengan lebih responsif dan cepat dibandingkan dengan menggunakan render. Hasil response dapat diproses tanpa user harus menunggu dan melakukan page reload setiap kali user melakukan interaksi dengan server. Selain itu, penggunaan AJAX dapat membuat aplikasi lebih intuitif dan mudah digunakan, karena dapat menyimpan state aplikasi (karena tidak perlu reload), dan dapat melihat perubahan yang user lakukan secara langsung.
+
+</details>

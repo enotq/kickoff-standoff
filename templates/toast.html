@@ -1,0 +1,84 @@
+{% load static %}
+<!-- Enhanced Toast Container - Bottom Right -->
+<div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-3 w-80 max-w-full">
+    <!-- Toast messages will be dynamically inserted here -->
+</div>
+
+<!-- Template for individual toasts -->
+<template id="toast-template">
+    <div class="toast-item relative p-4 rounded-xl shadow-lg border-l-4 transform transition-all duration-300 ease-out opacity-0 translate-y-full max-h-0 mb-0 overflow-hidden">
+        <div class="flex items-start gap-3">
+            <div class="toast-icon flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full mt-0.5"></div>
+            <div class="flex-1 min-w-0">
+                <h3 class="toast-title font-semibold text-sm leading-tight"></h3>
+                <p class="toast-message text-xs mt-1 opacity-90 leading-relaxed"></p>
+            </div>
+            <button class="toast-close flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors duration-200 rounded-full p-1 hover:bg-black/5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <!-- Progress Bar -->
+        <div class="toast-progress absolute bottom-0 left-0 h-1 bg-current opacity-20 transition-all duration-linear rounded-b-xl"></div>
+    </div>
+</template>
+
+<!-- Custom Toast Styles -->
+<style>
+.toast-item {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.toast-enter {
+    animation: toastEnter 0.3s ease-out forwards;
+}
+
+.toast-exit {
+    animation: toastExit 0.3s ease-in forwards;
+}
+
+@keyframes toastEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(100%) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes toastExit {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100%) scale(0.9);
+    }
+}
+
+/* Custom scrollbar for toast container */
+#toast-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+#toast-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#toast-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+#toast-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+</style>
+
+<script src="{% static 'js/toast.js' %}"></script>
