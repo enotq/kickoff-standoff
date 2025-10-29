@@ -178,6 +178,39 @@
 
   </div>
 </div>
+<script>
+  // Check messages from Django and show toasts
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check URL parameters for success/error messages
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const error = urlParams.get('error');
 
+    if (success === 'registered') {
+      showToast('Account created successfully! Please login.', 'Welcome!', 'success');
+    } else if (success === 'login') {
+      showToast('Welcome back! You have been logged in.', 'Success', 'success');
+    } else if (success === 'logout') {
+      showToast('You have been logged out successfully.', 'Goodbye!', 'info');
+    } else if (error === 'login') {
+      showToast('Invalid username or password.', 'Login Failed', 'error');
+    }
+
+    // Django messages integration (if you're using Django messages framework)
+    {% if messages %}
+      {% for message in messages %}
+        {% if message.tags == 'success' %}
+          showToast('{{ message }}', 'Success', 'success');
+        {% elif message.tags == 'error' %}
+          showToast('{{ message }}', 'Error', 'error');
+        {% elif message.tags == 'warning' %}
+          showToast('{{ message }}', 'Warning', 'warning');
+        {% elif message.tags == 'info' %}
+          showToast('{{ message }}', 'Info', 'info');
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  });
+</script>
 
 {% endblock content %}

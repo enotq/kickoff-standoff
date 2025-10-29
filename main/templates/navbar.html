@@ -3,63 +3,82 @@
   <div class="max-w-8xl mx-auto px-6 lg:px-8">
     <div class="flex h-16 items-center justify-between">
       <div class="flex items-center">
-        <div class="mx-auto mr-4 h-10 w-10">
-          <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" onclick="window.location.href='/'">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+        <div class="mx-auto mr-4 h-10 w-10 cursor-pointer" onclick="window.location.href='/'">
+          <svg class="h-10 w-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
         </div>
         <h1 class="text-xl font-semibold text-gray-900">
-          <a href="/" class="text-green-600">Kickoff Standoff</a>
+          <a href="/" class="text-green-600 hover:text-green-700 transition-colors">Kickoff Standoff</a>
         </h1>
       </div>
 
-    <!-- Desktop Navigation -->
-
-    <!-- Dropdown menu -->
+      <!-- Desktop Navigation -->
       <div class="hidden items-center space-x-8 md:flex">
+        <!-- Category Dropdown -->
         <div class="relative inline-block text-left">
-          <span id="categoryBtn" class="text-gray-700 hover:text-blue-600 cursor-pointer">
-            {% if filter_category and filter_category != 'all' %}
-                {{ filter_category|capfirst }}
-            {% else %}
-                Categories
-            {% endif %}
-            <svg class="w-4 h-4 inline ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <span id="categoryBtn" class="cursor-pointer text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            Categories
+            <svg class="ml-1 inline h-4 w-4 transition-transform" id="categoryBtnArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
           </span>
 
-          <!-- dropdown menu -->
-          <div id="categoryMenu" class="hidden absolute left-0 top-full mt-0 pt-2 w-56 bg-white rounded-md shadow-lg border border-gray-200 z-10">
-            <a href="{% url 'main:show_main' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">All Products</a>
-            <a href="/?category=shoes" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Shoes</a>
-            <a href="/?category=equipment" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Equipment</a>
-            <a href="/?category=uniform" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Uniform</a>
-            <a href="/?category=t-shirt" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">T-shirt</a>
-            <a href="/?category=socks" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Socks</a>
-            <a href="/?category=merchandise" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Merchandise</a>
-            <a href="/?category=other" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Other</a>
+          <!-- Dropdown menu -->
+          <div id="categoryMenu" class="absolute top-full left-0 z-10 mt-2 hidden w-56 rounded-lg border border-gray-200 bg-white shadow-xl">
+            <a href="{% url 'main:show_main' %}" data-category="" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors font-medium rounded-t-lg">
+              All Products
+            </a>
+            <a href="/?category=shoes" data-category="shoes" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+              Shoes
+            </a>
+            <a href="/?category=equipment" data-category="equipment" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+              Equipment
+            </a>
+            <a href="/?category=uniform" data-category="uniform" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+              Uniform
+            </a>
+            <a href="/?category=t-shirt" data-category="t-shirt" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+              T-shirt
+            </a>
+            <a href="/?category=socks" data-category="socks" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+              Socks
+            </a>
+            <a href="/?category=merchandise" data-category="merchandise" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+              Merchandise
+            </a>
+            <a href="/?category=other" data-category="other" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors rounded-b-lg">
+              Other
+            </a>
           </div>
         </div>
+
+        <!-- Search Bar -->
         <div class="relative">
-          <form method="GET" action="{% url 'main:show_main' %}" class="flex items-center">
+          <form method="GET" action="{% url 'main:show_main' %}" id="navSearchForm" class="flex items-center">
             <input
-                type="text"
-                name="search"
-                placeholder="Search products..."
-                value="{{ search_query }}"
-                class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              type="text"
+              name="search"
+              id="navSearchInput"
+              placeholder="Search products..."
+              value="{{ search_query }}"
+              class="w-64 rounded-lg border border-gray-300 px-4 py-2 pr-10 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none transition-all"
+            />
+            <button type="submit" class="absolute top-1/2 right-2 -translate-y-1/2 transform text-gray-400 hover:text-gray-600 transition-colors">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
             </button>
           </form>
         </div>
-      <a href="{% url 'main:add_product' %}" class="font-medium text-gray-600 transition-colors hover:text-gray-900"> Sell Product </a>
+
+        <button onclick="handleAddProduct()" class="inline-flex items-center gap-2 px-4 py-2 font-medium text-gray-700 hover:text-green-600 transition-colors rounded-lg hover:bg-green-50">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          Sell Product
+        </button>
       </div>
-
-
 
       <!-- Desktop User Section -->
       <div class="hidden items-center space-x-6 md:flex">
@@ -68,36 +87,84 @@
           <div class="text-sm font-medium text-gray-900">{{ name|default:user.username }}</div>
           <div class="text-xs text-gray-500">{{ npm|default:"Student" }} - {{ class|default:"Class" }}</div>
         </div>
-        <a href="{% url 'main:logout' %}" class="font-medium text-red-600 transition-colors hover:text-red-700"> Logout </a>
+        <a href="{% url 'main:logout' %}" class="inline-flex items-center gap-2 px-4 py-2 font-medium text-red-600 hover:text-red-700 transition-colors rounded-lg hover:bg-red-50">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+          </svg>
+          Logout
+        </a>
         {% else %}
-        <a href="{% url 'main:login' %}" class="font-medium text-gray-600 transition-colors hover:text-gray-900"> Login </a>
-        <a href="{% url 'main:register' %}" class="rounded bg-green-600 px-4 py-2 font-medium text-white transition-colors hover:bg-green-700"> Register </a>
+        <a href="{% url 'main:login' %}" class="font-medium text-gray-700 hover:text-gray-900 transition-colors px-4 py-2 rounded-lg hover:bg-gray-100">
+          Login
+        </a>
+        <a href="{% url 'main:register' %}" class="inline-flex items-center gap-2 rounded-lg bg-green-600 px-5 py-2.5 font-medium text-white transition-all hover:bg-green-700 shadow-sm hover:shadow-md">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+          </svg>
+          Register
+        </a>
         {% endif %}
       </div>
 
       <!-- Mobile Menu Button -->
       <div class="flex items-center md:hidden">
-        <button class="mobile-menu-button p-2 text-gray-600 transition-colors hover:text-gray-900">
+        <button class="mobile-menu-button p-2 text-gray-600 transition-colors hover:text-gray-900 rounded-lg hover:bg-gray-100">
           <span class="sr-only">Open menu</span>
           <div class="flex h-6 w-6 flex-col items-center justify-center">
-            <span class="block h-0.5 w-6 rounded-sm bg-current transition-all duration-300 ease-out"></span>
-            <span class="my-0.5 block h-0.5 w-6 rounded-sm bg-current transition-all duration-300 ease-out"></span>
-            <span class="block h-0.5 w-6 rounded-sm bg-current transition-all duration-300 ease-out"></span>
+            <span class="mobile-menu-line block h-0.5 w-6 rounded-sm bg-current transition-all duration-300 ease-out"></span>
+            <span class="mobile-menu-line my-0.5 block h-0.5 w-6 rounded-sm bg-current transition-all duration-300 ease-out"></span>
+            <span class="mobile-menu-line block h-0.5 w-6 rounded-sm bg-current transition-all duration-300 ease-out"></span>
           </div>
         </button>
       </div>
     </div>
   </div>
+
   <!-- Mobile Menu -->
   <div class="mobile-menu hidden border-t border-gray-200 bg-white md:hidden">
     <div class="space-y-4 px-6 py-4">
-      <!-- Mobile Navigation Links -->
-      <div class="space-y-1">
-        <a href="/" class="block py-3 font-medium text-gray-600 transition-colors hover:text-gray-900"> Home </a>
-        <a href="{% url 'main:add_product' %}" class="block py-3 font-medium text-gray-600 transition-colors hover:text-gray-900"> Sell Product </a>
+      <!-- Mobile Search -->
+      <form method="GET" action="{% url 'main:show_main' %}" id="mobileSearchForm" class="relative">
+        <input
+          type="text"
+          name="search"
+          id="mobileSearchInput"
+          placeholder="Search products..."
+          value="{{ search_query }}"
+          class="w-full rounded-lg border border-gray-300 px-4 py-2 pr-10 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none"
+        />
+        <button type="submit" class="absolute top-1/2 right-2 -translate-y-1/2 transform text-gray-400 hover:text-gray-600">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Mobile Category Dropdown -->
+      <div class="border-t border-gray-200 pt-4">
+        <button id="mobileCategoryBtn" class="flex items-center justify-between w-full py-3 font-medium text-gray-700">
+          <span>Categories</span>
+          <svg class="h-5 w-5 transition-transform" id="mobileCategoryArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="mobileCategoryMenu" class="hidden space-y-1 pl-4 mt-2">
+          <a href="{% url 'main:show_main' %}" data-category="" class="block py-2 text-sm text-gray-600 hover:text-gray-900">All Products</a>
+          <a href="/?category=shoes" data-category="shoes" class="block py-2 text-sm text-gray-600 hover:text-gray-900">Shoes</a>
+          <a href="/?category=equipment" data-category="equipment" class="block py-2 text-sm text-gray-600 hover:text-gray-900">Equipment</a>
+          <a href="/?category=uniform" data-category="uniform" class="block py-2 text-sm text-gray-600 hover:text-gray-900">Uniform</a>
+          <a href="/?category=t-shirt" data-category="t-shirt" class="block py-2 text-sm text-gray-600 hover:text-gray-900">T-shirt</a>
+          <a href="/?category=socks" data-category="socks" class="block py-2 text-sm text-gray-600 hover:text-gray-900">Socks</a>
+          <a href="/?category=merchandise" data-category="merchandise" class="block py-2 text-sm text-gray-600 hover:text-gray-900">Merchandise</a>
+          <a href="/?category=other" data-category="other" class="block py-2 text-sm text-gray-600 hover:text-gray-900">Other</a>
+        </div>
       </div>
 
-
+      <!-- Mobile Navigation Links -->
+      <div class="space-y-1 border-t border-gray-200 pt-4">
+        <a href="/" class="block py-3 font-medium text-gray-600 transition-colors hover:text-gray-900">Home</a>
+        <button onclick="handleAddProduct()" class="block w-full text-left py-3 font-medium text-gray-600 transition-colors hover:text-gray-900">Sell Product</button>
+      </div>
 
       <!-- Mobile User Section -->
       <div class="border-t border-gray-200 pt-4">
@@ -106,57 +173,129 @@
           <div class="font-medium text-gray-900">{{ name|default:user.username }}</div>
           <div class="text-sm text-gray-500">{{ npm|default:"Student" }} - {{ class|default:"Class" }}</div>
         </div>
-        <a href="{% url 'main:logout' %}" class="block py-3 font-medium text-red-600 transition-colors hover:text-red-700"> Logout </a>
+        <a href="{% url 'main:logout' %}" class="block py-3 font-medium text-red-600 transition-colors hover:text-red-700">Logout</a>
         {% else %}
         <div class="space-y-3">
-          <a href="{% url 'main:login' %}" class="block py-3 font-medium text-gray-600 transition-colors hover:text-gray-900"> Login </a>
-          <a href="{% url 'main:register' %}" class="block rounded bg-green-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-green-700"> Register </a>
+          <a href="{% url 'main:login' %}" class="block py-3 font-medium text-gray-600 transition-colors hover:text-gray-900">Login</a>
+          <a href="{% url 'main:register' %}" class="block rounded-lg bg-green-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-green-700">Register</a>
         </div>
         {% endif %}
       </div>
     </div>
   </div>
+
   <script>
-    const btn = document.querySelector("button.mobile-menu-button");
-    const menu = document.querySelector(".mobile-menu");
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector("button.mobile-menu-button");
+    const mobileMenu = document.querySelector(".mobile-menu");
+    const mobileMenuLines = document.querySelectorAll(".mobile-menu-line");
 
-    btn.addEventListener("click", () => {
-      menu.classList.toggle("hidden");
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+
+      // Animate hamburger to X
+      if (!mobileMenu.classList.contains("hidden")) {
+        mobileMenuLines[0].style.transform = "rotate(45deg) translateY(7px)";
+        mobileMenuLines[1].style.opacity = "0";
+        mobileMenuLines[2].style.transform = "rotate(-45deg) translateY(-7px)";
+      } else {
+        mobileMenuLines[0].style.transform = "";
+        mobileMenuLines[1].style.opacity = "";
+        mobileMenuLines[2].style.transform = "";
+      }
     });
 
+    // Desktop category dropdown
+    function initDropdown(btnId, menuId, arrowId) {
+      const btn = document.getElementById(btnId);
+      const menu = document.getElementById(menuId);
+      const arrow = arrowId ? document.getElementById(arrowId) : null;
+      const container = btn.parentElement;
+      let isOpen = false;
+      let closeTimeout = null;
 
-  function initDropdown(btnId, menuId) {
-    const btn = document.getElementById(btnId);
-    const menu = document.getElementById(menuId);
-    let isClicked = false;
-
-    // Show on hover
-    btn.addEventListener('mouseenter', () => menu.classList.remove('hidden'));
-
-    // Keep open on click
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        isClicked = true;
+      function openMenu() {
+        clearTimeout(closeTimeout);
+        isOpen = true;
         menu.classList.remove('hidden');
-    });
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
+      }
 
-    // hide when not hovered
-    const container = btn.parentElement;
-    container.addEventListener('mouseleave', () => {
-        if (!isClicked) {
-            menu.classList.add('hidden');
-        }
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', () => {
+      function closeMenu() {
+        isOpen = false;
         menu.classList.add('hidden');
-        isClicked = false;
-    });
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+      }
 
-    // Prevent closing when clicking inside menu
-    menu.addEventListener('click', (e) => e.stopPropagation());
-  }
-  initDropdown('categoryBtn', 'categoryMenu')
+      function scheduleClose() {
+        closeTimeout = setTimeout(() => {
+          if (!isOpen) return;
+          closeMenu();
+        }, 200); // 200ms delay before closing
+      }
+
+      // Show on hover
+      btn.addEventListener('mouseenter', openMenu);
+      menu.addEventListener('mouseenter', () => {
+        clearTimeout(closeTimeout);
+      });
+
+      // Keep open on click
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isOpen) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      // Schedule close when mouse leaves
+      btn.addEventListener('mouseleave', scheduleClose);
+      menu.addEventListener('mouseleave', scheduleClose);
+
+      // Close when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!container.contains(e.target) && !menu.contains(e.target)) {
+          closeMenu();
+        }
+      });
+
+      // Prevent closing when clicking inside menu
+      menu.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+
+    initDropdown('categoryBtn', 'categoryMenu', 'categoryBtnArrow');
+
+    // Mobile category dropdown
+    const mobileCategoryBtn = document.getElementById('mobileCategoryBtn');
+    const mobileCategoryMenu = document.getElementById('mobileCategoryMenu');
+    const mobileCategoryArrow = document.getElementById('mobileCategoryArrow');
+
+    if (mobileCategoryBtn) {
+      mobileCategoryBtn.addEventListener('click', () => {
+        mobileCategoryMenu.classList.toggle('hidden');
+        if (mobileCategoryMenu.classList.contains('hidden')) {
+          mobileCategoryArrow.style.transform = 'rotate(0deg)';
+        } else {
+          mobileCategoryArrow.style.transform = 'rotate(180deg)';
+        }
+      });
+    }
+
+    // Smart Add Product Handler
+    function handleAddProduct() {
+      // Check if we're on the main page by looking for the modal
+      const modal = document.getElementById('crudModal');
+      if (modal && typeof showModal === 'function') {
+        // We're on the main page with the modal, show it
+        showModal();
+      } else {
+        // Redirect to add product page
+        window.location.href = '{% url "main:add_product" %}';
+      }
+    }
   </script>
 </nav>

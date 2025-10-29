@@ -67,9 +67,3 @@ def update_product_rating(sender, instance, **kwargs):
     product.save(update_fields=['rating'])
 
 
-'''
-class Car(models.Model):
-    name = models.CharField(max_length=255)
-    brand = models.CharField(max_length=255)
-    stock = models.IntegerField()
-'''
