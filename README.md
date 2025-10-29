@@ -369,7 +369,7 @@ V. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara ste
         Untuk bagian navbar, saya menambahkan icon aplikasi sementara serta namanya pada bagian kiri navbar yang berguna sebagai tombol home jika ditekan. Saya juga menambahkan tombol drop down kategori yang berfungsi sebagai filter halaman utama yang akan menampilkan produk dengan kategori yang sesuai. Terdapat juga searchbar yang akan menampilkan produk yang terkait dengan input yang dimasukkan, dengan menggunakan django Q.
         Search bar akan mencari produk dengan nama, vendor, brand, dan kategori yang sama dengan yang dicari. Setelah itu terdapat tombol sell product yang berguna untuk menambahkan produk, dan pada bagian kanan terdapat bagian user dan tombol log out.
 
-</detail>
+</details>
 
 <details>
 <summary>Tugas Individu 6</summary>
